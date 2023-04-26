@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 
-require('../database/dbConnection');
+// require('../database/dbConnection');
+require('../database/dbconnection');
 
 
 router.get('/', (req, res) =>{
