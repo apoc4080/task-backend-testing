@@ -28,41 +28,41 @@ const server = app.listen(PORT, ()=>{
     console.log(`server is running on port ${PORT}`);
 })
 
-const io = require("socket.io")(server, {
-    pingTimeout: 60000,
-    cors: {
-      origin: "http://localhost:3000",
-      // origin: "https://task-hive.netlify.app/",
-    },
-});
+// const io = require("socket.io")(server, {
+//     pingTimeout: 60000,
+//     cors: {
+//       origin: "http://localhost:3000",
+//       // origin: "https://task-hive.netlify.app/",
+//     },
+// });
 
 
-io.on("connection", (socket) => {
-    console.log("Connected to socket.io");
-    socket.on("setUser", (userProfile) => {
-      socket.join(userProfile.id);
-      socket.emit("User Connected");
-    });
+// io.on("connection", (socket) => {
+//     console.log("Connected to socket.io");
+//     socket.on("setUser", (userProfile) => {
+//       socket.join(userProfile.id);
+//       socket.emit("User Connected");
+//     });
   
-    socket.on("joinSelectedChat", (chat) => {
-      socket.join(chat);
-      console.log("User Joined Room: " + chat);
-    }); 
+//     socket.on("joinSelectedChat", (chat) => {
+//       socket.join(chat);
+//       console.log("User Joined Room: " + chat);
+//     }); 
    
   
-    socket.on("sendingMessage", (data) => {
-      let receivedMessage = data.newMessage;
-      let currentChat = data.getChat;
+//     socket.on("sendingMessage", (data) => {
+//       let receivedMessage = data.newMessage;
+//       let currentChat = data.getChat;
 
-      currentChat.users.forEach((user) => {
-        socket.to(user).emit("messageRecieved", receivedMessage);
-      });
+//       currentChat.users.forEach((user) => {
+//         socket.to(user).emit("messageRecieved", receivedMessage);
+//       });
 
   
-    });
+//     });
   
-    socket.off("setUser", () => {
-      console.log("USER DISCONNECTED");
-      socket.leave(userProfile.id);
-    });
-  });
+//     socket.off("setUser", () => {
+//       console.log("USER DISCONNECTED");
+//       socket.leave(userProfile.id);
+//     });
+//   });

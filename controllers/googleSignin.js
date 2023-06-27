@@ -33,7 +33,7 @@ const createTransporter = async () => {
           resolve(token);
         });
     });
-
+    // const accessToken = await oauth2Client.getAccessToken()
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -181,7 +181,7 @@ module.exports = router.post('/createNewUser', upload.single("userImage"), async
 
             let token = await newUser.generateAuthToken();
 
-            const url = `http://localhost:5000/verify/${token}`
+            const url = `/verify/${token}`
 
 
             sendEmail({
