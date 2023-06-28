@@ -6,7 +6,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 // dotenv.config({ path: './config.env' });
-
+app.use((req, res, next) => {
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin'); // Set the COOP policy to 'same-origin' or 'same-origin-allow-popups'
+    next();
+});
 dotenv.config(); 
 // require('./database/dbConnection'); 
 app.use(cors());
