@@ -7,7 +7,8 @@ const cors = require('cors');
 
 // dotenv.config({ path: './config.env' });
 app.use((req, res, next) => {
-    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin'); // Set the COOP policy to 'same-origin' or 'same-origin-allow-popups'
+    res.header('Cross-Origin-Opener-Policy', 'same-origin'); // Set the COOP policy to 'same-origin' or 'same-origin-allow-popups'
+    res.header('Cross-Origin-Embedder-Policy', 'require-corp'); // Set the COEP policy to 'require-corp' if needed
     next();
 });
 dotenv.config(); 
