@@ -91,18 +91,20 @@ module.exports = router.post('/googleSignIn', async(req, res)=>{
             });
 
             let token = await userExist.generateAuthToken();
-            // console.log(token);
+
             res.cookie("jwtoken", token, {
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true
             })
-
             const userProfile = {
                 id: userExist._id,
-                name: payload.name,
-                email: payload.email,
-                image: payload.picture,
+                name: userExist.name,
+                email: userExist.email,
+                image: userExist.image,
+                tok: token,
             };
+
+            res.status(201).json(userProfile);
     
             console.log("user updated")
             res.status(201).send(userProfile)
@@ -119,19 +121,21 @@ module.exports = router.post('/googleSignIn', async(req, res)=>{
 
             const newUser = await User.findOne({ email: payload.email });
             
-            let token = await newUser.generateAuthToken();
+            let token = await userExist.generateAuthToken();
 
             res.cookie("jwtoken", token, {
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true
             })
-
             const userProfile = {
-                id: newUser._id,
-                name: payload.name,
-                email: payload.email,
-                image: payload.picture,
+                id: userExist._id,
+                name: userExist.name,
+                email: userExist.email,
+                image: userExist.image,
+                tok: token,
             };
+
+            // res.status(201).json(userProfile);
 
             res.status(201).send(userProfile)
         }
