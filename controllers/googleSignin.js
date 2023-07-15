@@ -222,12 +222,7 @@ module.exports = router.post('/signInUser', async(req, res)=>{
 
             
             
-            const userProfile = {
-                id: userExist._id,
-                name: userExist.name,
-                email: userExist.email,
-                image: userExist.image,
-            };
+
 
             let token = await userExist.generateAuthToken();
 
@@ -235,7 +230,13 @@ module.exports = router.post('/signInUser', async(req, res)=>{
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true
             })
-
+            const userProfile = {
+                id: userExist._id,
+                name: userExist.name,
+                email: userExist.email,
+                image: userExist.image,
+                tok: token,
+            };
 
             res.status(201).json(userProfile);
     
