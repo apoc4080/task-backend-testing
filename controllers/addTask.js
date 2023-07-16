@@ -104,7 +104,7 @@ module.exports = router.post('/deletingselectedTask', userAuth, async (req, res)
           // Save the updated task list to the database
           await findTasks.save();
   
-          res.status(200).send({ message: "Task deleted" });
+          res.status(201).send({ message: "Task deleted" });
         } else {
           res.status(404).send({ message: "Task not found" });
         }
