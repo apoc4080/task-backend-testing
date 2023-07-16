@@ -185,7 +185,7 @@ module.exports = router.post('/createNewUser', upload.single("userImage"), async
 
             let token = await newUser.generateAuthToken();
 
-            const url = `/verify/${token}`
+            const url = `https://taskhive-backend-testing.onrender.com/verify/${token}`
 
 
             sendEmail({
