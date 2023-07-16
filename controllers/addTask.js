@@ -88,22 +88,30 @@ module.exports = router.post('/updatingTask', userAuth, async(req, res)=>{
 
 
 
-module.exports = router.post('/deletingselectedTask', userAuth, async(req, res)=>{
+module.exports = router.post('/deletingselectedTask', userAuth, async (req, res) => {
     const taskId = req.body.taskId;
-    const findTasks = await AddTask.findOne({ userRef : req.userID  });
-
+    const findTasks = await AddTask.findOne({ userRef: req.userID });
+  
     try {
-        if(findTasks){
-            console.log(findTasks)
-            let pullSelectedTask = findTasks.allTasks.filter(element1 => element1._id.toString() === taskId);
-            console.log(pullSelectedTask)
-            findTasks.allTasks = pullSelectedTask;
-            await findTasks.save();
-            res.status(201).send({message: "Task Deleted"});
+      if (findTasks) {
+        // Find the index of the task with the matching ID
+        const taskIndex = findTasks.allTasks.findIndex(task => task._id.toString() === taskId);
+  
+        if (taskIndex !== -1) {
+          // Remove the task from the array using splice
+          findTasks.allTasks.splice(taskIndex, 1);
+  
+          // Save the updated task list to the database
+          await findTasks.save();
+  
+          res.status(200).send({ message: "Task deleted" });
+        } else {
+          res.status(404).send({ message: "Task not found" });
         }
+      }
     } catch (error) {
-        res.status(500).send(error.message);
-        console.log(error)
+      res.status(500).send(error.message);
+      console.log(error);
     }
-
-});
+  });
+  
