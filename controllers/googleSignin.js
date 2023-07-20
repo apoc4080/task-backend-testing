@@ -152,7 +152,7 @@ module.exports = router.post('/googleSignIn', async(req, res)=>{
 
 module.exports = router.post('/createNewUser', upload.single("userImage"), async(req, res)=>{
     const {userName, userEmail, userPassword, userCnfrmPass} = req.body;
-    const userImage = req.body.file;
+    const userImage = req.file;
 
     if(!userName || !userEmail || !userPassword || !userCnfrmPass){
         return res.status(422).json({ error: "Please filled the form properly"})
