@@ -172,7 +172,7 @@ module.exports = router.post('/createNewUser', upload.single("userImage"), async
                 email: userEmail,
                 userPassword: userPassword,
                 userCnfrmPass: userCnfrmPass,
-                imageName: userImage.originalname,
+                // imageName: userImage.originalname,
                 image: userImage.path,
                 imageType: userImage.mimetype,
                 imageSize: userImage.size,
